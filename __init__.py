@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import os
+import os, pwd
 
 def listPlugins():
     files = os.listdir(os.getcwd() + "/plugins/")
@@ -14,13 +14,14 @@ PLUGINS = listPlugins()
 
 def validateCommand(user_input):
     split_input = user_input.split()
-    if split_input[0] in PLUGINS:
+    if (len(split_input) > 1 and split_input[0] in PLUGINS) or (len(split_input) == 1 and split_input in PLUGINS):
         print("Valid command can now be executed")
     else:
         print("Sorry, that was an invalid command!")
 
 def main():
     os.system('clear')
+    print("Hello " + pwd.getpwuid(os.getuid())[0])
     user_input = ""
     while user_input != "quit":
         user_input = input(">> ")
