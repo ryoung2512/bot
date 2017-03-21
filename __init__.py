@@ -8,4 +8,9 @@ def listPlugins():
         plugin = p.split(".")
         plugins.append(plugin[0])
     return plugins
-print(listPlugins())
+
+def main():
+    user_input = ""
+    while user_input != "quit":
+        user_input = input(">> ")
+        print("You entered " + user_input)
