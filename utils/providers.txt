@@ -1,0 +1,20 @@
+Canada, Aliant, number@sms.wirefree.informe.ca
+Canada, Bell Mobility, number@txt.bell.ca
+Canada, Bell Mobility, number@txt.bellmobility.ca
+Canada, Solo Mobile, number@txt.bell.ca
+Canada, Solo Mobile, number@txt.bellmobility.ca
+Canada, Fido, number@sms.fido.ca	as of June 2012, Roger's web server is faster
+Canada, Koodo Mobile, number@msg.telus.com
+Canada, Lynx Mobility, number@sms.lynxmobility.com
+Canada, MTS Mobility, number@text.mtsmobility.com
+Canada, PC Telecom, number@mobiletxt.ca
+Canada, SaskTel, number@sms.sasktel.com
+Canada, Virgin Mobile, number@vmobile.ca
+Canada, Wind Mobile, number@txt.windmobile.ca
+Canada, Rogers Wireless, number@pcs.rogers.com
+Canada, Rogers Wireless, number@sms.rogers.com
+Canada, Telus Mobility, number@msg.telus.com
+United States, Rogers Wireless, number@pcs.rogers.com
+United States, Rogers Wireless, number@sms.rogers.com
+United States, Telus Mobility, number@msg.telus.com
+United States, AT&T, number@txt.att.net
