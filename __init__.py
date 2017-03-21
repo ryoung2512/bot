@@ -2,8 +2,10 @@
 import os
 
 def listPlugins():
-    plugins = os.listdir(os.getcwd() + "/plugins/")
-    for p in plugins:
+    files = os.listdir(os.getcwd() + "/plugins/")
+    plugins = []
+    for p in files:
         plugin = p.split(".")
-        print(plugin[0])
-listPlugins()
+        plugins.append(plugin[0])
+    return plugins
+print(listPlugins())
