@@ -28,6 +28,5 @@ def getEmail(country, provider):
         return email[1]
     return email
 
-#print(getEmail("canada", "bell"))
 email = "7173177329" + "@" + getEmail("united states", "at&t")
-sendMessage("hello jay this is a test....woops", email)
+sendMessage("test", email)
