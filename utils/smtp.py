@@ -1,9 +1,11 @@
-import smtplib, os, sys
+import smtplib
+import sys
 
 sender = "serenabotv1@gmail.com"
 password = "g00b3r1f1c"
 
-def sendMessage(message, email):
+
+def send_message(message, email):
     try:
         server = smtplib.SMTP('smtp.gmail.com:587')
         server.ehlo()
@@ -11,11 +13,12 @@ def sendMessage(message, email):
         server.login(sender, password)
         server.sendmail(sender, email, message)
         server.quit()
-        print("Succesfully sent the message")
+        print('Successfully sent the message')
     except:
         print("Failed to send message exited with error code:", sys.exc_info()[0])
 
-def getEmail(country, provider):
+
+def get_email(country, provider):
     f = open("providers.txt", "r")
     email = ""
     for line in f:
@@ -24,9 +27,9 @@ def getEmail(country, provider):
             email = split_line[2].split("@")
             break
     f.close()
-    if (email != ""):
+    if email != "":
         return email[1]
     return email
 
-email = "7173177329" + "@" + getEmail("united states", "at&t")
-sendMessage("test", email)
+email_out = "7173177329" + "@" + get_email("united states", "at&t")
+send_message("test", email_out)
