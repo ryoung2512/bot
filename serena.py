@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import os
+import pywit
 try:
     import pwd
 except:
@@ -33,7 +34,7 @@ def validate_command(user_input):
 
 
 def main():
-    os.system('cls')
+    os.system('clear')
     print("Hello " + USER)
     user_input = ""
     while user_input != "quit":
