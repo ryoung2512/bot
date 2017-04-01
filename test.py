@@ -17,8 +17,10 @@ def first_entity_value(entities, entity):
         return None
     return val['value'] if isinstance(val, dict) else val
 
+
 def send(request, response):
     print(response['text'])
+
 
 def get_forecast(request):
     context = request['context']
