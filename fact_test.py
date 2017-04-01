@@ -1,5 +1,6 @@
 import sys
 from wit import Wit
+import utils.speech as speech
 
 # The token needed to communicate with our bot
 token = "TU2KA4CPBA2ZH53L3E2GGXXXOAKNHQFL"
@@ -13,7 +14,8 @@ def fact(request):
 
 
 def send(request, response):
-    print(response['text'])
+    print(response['text'].decode('utf8'))
+    speech.bot_speak(response['text'].decode('utf8'))
 
 actions = {'send': send, 'fact': fact}
 
