@@ -1,2 +1,6 @@
+pywit
+six
+pypiwin32
+pyttsx
 requests==2.13.0
 wit==4.2.0
