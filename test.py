@@ -5,6 +5,7 @@ access_token = "TU2KA4CPBA2ZH53L3E2GGXXXOAKNHQFL"
 # Quickstart example
 # See https://wit.ai/ar7hur/Quickstart
 
+
 def first_entity_value(entities, entity):
     if entity not in entities:
         return None
