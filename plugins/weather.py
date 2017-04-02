@@ -19,4 +19,4 @@ def get_weather(city, region_code):
     print("It is " + results['text'] + " outside.")
 
 
-get_weather("Guelph", 'ON')
+#get_weather("Guelph", 'ON')

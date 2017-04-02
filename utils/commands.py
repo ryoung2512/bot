@@ -3,23 +3,6 @@ import requests
 import string
 import random
 import getpass
-from plugins import *
-
-def action_to_function(action, args):
-
-    functions = {
-        'alarm': alarm,
-        'reminder': reminder,
-        'weather': weather.get_weather,
-        'music': music.play_music,
-        'sports': sports.get_sports,
-        'web_search': web.web_search,
-        'paste': pastebin.paste_file,
-        'define': dictionary.dictionary_define
-    }
-    return functions.get(action)(args)
-
-# to all a function do functions[function](args) not sure how to change it like that for this
 
 
 def generate_id(length):
@@ -39,7 +22,3 @@ def get_location():
 
 def get_username():
     return getpass.getuser()
-
-# location = get_location()
-# print(location['city'])
-# print(location['region_code'])
