@@ -2,7 +2,7 @@
 import utils.speechtt as user_speech
 import utils.converse as converse
 import utils.commands as util
-
+import utils.load_plugins as loadplugins
 
 def main():
     user_input = ""

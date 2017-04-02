@@ -1,1 +1,1 @@
-__all__ = ["alarm", "weather", "pastebin", "music", "sports", "reminder", "dictionary", "web"]
+__all__ = ["alarm", "weather", "music", "sports", "reminder", "dictionary", "web", "paste"]
