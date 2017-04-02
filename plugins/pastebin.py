@@ -6,6 +6,9 @@ import optparse
 import sys
 import os.path
 
+def paste_file():
+    print("in paste file")
+
 # user editable config
 #
 # user key

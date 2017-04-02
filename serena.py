@@ -9,7 +9,7 @@ def main():
     communicator = converse.Communicator()
     intent = ""
     #while intent != "goodbye":
-       # if communicator.get_type() == 'empty' or communicator.get_type() == 'stop' or intent =='empty':
+       # if communicator.get_type() ==q 'empty' or communicator.get_type() == 'stop' or intent =='empty':
         #    user_input = input("> ")
             #print("Please say something: ")
             #user_input = user_speech.active_listen()
