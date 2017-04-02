@@ -1,4 +1,3 @@
-pywit
 six
 pypiwin32
 pyttsx

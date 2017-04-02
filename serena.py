@@ -8,9 +8,11 @@ def main():
     communicator = converse.Communicator()
     intent = ""
     while intent != "goodbye":
-        #user_input = user_speech.active_listen()
         if (communicator.get_type() == 'empty' or communicator.get_type() == 'stop'):
-            user_input = input("> ")
+            #user_input = input("> ")
+            print("Please say something: ")
+            user_input = user_speech.active_listen()
+            print("you: " + user_input)
         communicator.talk(user_input)
         intent = communicator.get_intent()
         communicator.print_message()
