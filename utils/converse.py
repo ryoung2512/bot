@@ -20,6 +20,10 @@ class Communicator(object):
         else:
             return 'empty'
 
+    def get_intent(self):
+        if 'entities' in self.response:
+            return self.response['entities']['intent'][0]['value']
+
     def print_message(self):
         if 'msg' in self.response:
             print('serena: ' + self.response['msg'])
