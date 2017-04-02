@@ -1,11 +1,7 @@
 import sys
 from wit import Wit
 
-if len(sys.argv) != 2:
-    print('usage: python ' + sys.argv[0] + ' <wit-token>')
-    exit(1)
-access_token = sys.argv[1]
-
+access_token = "TU2KA4CPBA2ZH53L3E2GGXXXOAKNHQFL"
 # Quickstart example
 # See https://wit.ai/ar7hur/Quickstart
 

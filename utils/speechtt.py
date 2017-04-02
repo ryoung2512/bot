@@ -8,7 +8,6 @@ def active_listen():
     msg = ''
     try:
         msg = r.recognize_google(audio)
-        print(msg.lower())
     except sr.UnknownValueError:
         print("Google Speech Recognition could not understand audio")
     except sr.RequestError as e:
@@ -17,6 +16,3 @@ def active_listen():
         print("Unknown exception occurred!")
     finally:
         return msg.lower()
-
-
-active_listen()
