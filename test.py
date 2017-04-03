@@ -3,6 +3,8 @@
 
 import os.path
 import sys
+import time
+import json
 
 try:
     import apiai
@@ -24,12 +26,13 @@ def main():
 
     request.session_id = "<SESSION ID, UNIQUE FOR EACH USER>"
 
+    start_time = time.time()
     request.query = "Hello"
 
     response = request.getresponse()
-
-    print (response.read())
-
+    response = json.loads(response.read())
+    print (response)
+    print("--- %s seconds ---" % (time.time() - start_time))
 
 if __name__ == '__main__':
     main()

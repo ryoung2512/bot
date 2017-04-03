@@ -12,7 +12,8 @@ def main():
     intent = ""
     while intent != "goodbye":
         user_input = input("> ")
-        # user_input = user_speech.active_listen()
+        #print("Please say something: ")
+       # user_input = user_speech.active_listen()
         print(username + ": " + user_input)
         communicator.talk(user_input)
         # intent = communicator.get_intent()

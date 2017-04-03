@@ -1,3 +1,4 @@
+apiai
 six
 pypiwin32
 pyttsx
