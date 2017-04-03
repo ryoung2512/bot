@@ -4,36 +4,33 @@ Displays basic information
 Using Yahoo Weather
 """
 import json
-import urllib.parse
-import urllib.request
+from urllib.parse import urlencode
+from urllib.request import urlopen
 
 
 def process(input, entities):
     loc = entities['location'][0]['value']
-    baseurl = 'https://query.yahooapis.com/v1/public/yql?'
-    yql_query = 'select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="' + loc + '")'
-    yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json"
-    result = urllib.request.urlopen(yql_url).read()
-    data = json.loads(result)
-    results = data['query']['results']['channel']
-    location = results['location']
-    display_loc = location['city'] + "," + location['region'] + ", " + location['country']
-    condition = results['item']['condition']
+    msg = get_weather(loc)
 
-    #print(results)
     output = {
         'input': input,
-        'msg': "The current weather in " + display_loc + " is " + condition['text'] + " and " + condition['temp'] + " " + chr(176) + "C",
+        'msg': msg
         'success': True
     }
     return output
 
-def get_weather_city(city, region_code):
+def get_weather(location):
     baseurl = 'https://query.yahooapis.com/v1/public/yql?'
-    yql_query = "select item.condition from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"" + city + ", " + region_code + "\") and u='c'"
-    yql_url = baseurl + urllib.parse.urlencode({'q':yql_query}) + "&format=json"
-    result = urllib.request.urlopen(yql_url).read()
+    yql_query = 'select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="' + location + '")'
+    yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
+    result = urlopen(yql_url).read()
     data = json.loads(result)
-    results = data['query']['results']['channel']['item']['condition']
-    print("The current temperature for " + city + ", " + region_code + " is " + results['temp'] + " " + chr(176) + "C")
-    print("It is " + results['text'] + " outside.")
+
+    if data['query']['count'] is 0:
+        return "Sorry, I could not find that for you :("
+
+    results = data['query']['results']['channel']
+    loc = results['location']['city'] + "," + results['location']['region'] + ", " + results['location']['country']
+    condition = results['item']['condition']
+    return "The current weather in " + loc + " is " + condition['text'] + " and " + condition['temp'] + " " + chr(176) + "C"
+
