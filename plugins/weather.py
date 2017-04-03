@@ -14,7 +14,7 @@ def process(input, entities):
 
     output = {
         'input': input,
-        'msg': msg
+        'msg': msg,
         'success': True
     }
     return output
