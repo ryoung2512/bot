@@ -5,3 +5,4 @@ requests==2.13.0
 wit==4.2.0
 SpeechRecognition
 pyaudio
+wikipedia
