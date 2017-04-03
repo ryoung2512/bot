@@ -1,65 +1,35 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import os.path
 import sys
-import requests
-from wit import Wit
 
-access_token = "TU2KA4CPBA2ZH53L3E2GGXXXOAKNHQFL"
-# Quickstart example
-# See https://wit.ai/ar7hur/Quickstart
+try:
+    import apiai
+except ImportError:
+    sys.path.append(
+        os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir)
+    )
+    import apiai
 
-
-def first_entity_value(entities, entity):
-    if entity not in entities:
-        return None
-    val = entities[entity][0]['value']
-    if not val:
-        return None
-    return val['value'] if isinstance(val, dict) else val
+CLIENT_ACCESS_TOKEN = '07924bd190424e6caa2a5c5b63ff227b'
 
 
-def send(request, response):
-    print(response['text'])
+def main():
+    ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
+
+    request = ai.text_request()
+
+    request.lang = 'en'  # optional, default value equal 'en'
+
+    request.session_id = "<SESSION ID, UNIQUE FOR EACH USER>"
+
+    request.query = "Hello"
+
+    response = request.getresponse()
+
+    print (response.read())
 
 
-def get_forecast(request):
-    context = request['context']
-    entities = request['entities']
-
-    loc = first_entity_value(entities, 'location')
-    if loc:
-        context['forecast'] = 'sunny'
-        if context.get('missingLocation') is not None:
-            del context['missingLocation']
-    else:
-        context['missingLocation'] = True
-        if context.get('forecast') is not None:
-            del context['forecast']
-
-    return context
-
-actions = {
-    'send': send,
-    'getForecast': get_forecast,
-}
-
-#client = Wit(access_token=access_token, actions=actions)
-#client.interactive()
-
-
-def process_query(input):
-    try:
-        r = requests.get('https://api.wit.ai/message?v=20160420&q=' + input, headers={
-            'Authorization': 'Bearer %s' % access_token
-        })
-        data = r.json()
-        intent = data['outcomes'][0]['intent']
-        entities = data['outcomes'][0]['entities']
-        confidence = data['outcomes'][0]['confidence']
-        #if intent in src.__all__ and confidence > 0.5:
-        return [intent, entities, confidence]
-        #else:
-        #    return None, {}
-    except:
-        return None, {}
-
-print(process_query("weather in washington"))
-
+if __name__ == '__main__':
+    main()
