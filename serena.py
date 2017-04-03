@@ -13,11 +13,10 @@ def main():
         if communicator.get_type() == 'empty' or communicator.get_type() == 'stop' or intent =='empty':
             user_input = input("> ")
             print("Please say something: ")
-            user_input = user_speech.active_listen()
+            #user_input = user_speech.active_listen()
             print("you: " + user_input)
         communicator.talk(user_input)
-        intent = communicator.get_intent()
-        print("intent: " + intent)
+        #intent = communicator.get_intent()
         communicator.print_message()
 
 

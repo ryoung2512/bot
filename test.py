@@ -1,4 +1,5 @@
 import sys
+import requests
 from wit import Wit
 
 access_token = "TU2KA4CPBA2ZH53L3E2GGXXXOAKNHQFL"
@@ -40,5 +41,25 @@ actions = {
     'getForecast': get_forecast,
 }
 
-client = Wit(access_token=access_token, actions=actions)
-client.interactive()
+#client = Wit(access_token=access_token, actions=actions)
+#client.interactive()
+
+
+def process_query(input):
+    try:
+        r = requests.get('https://api.wit.ai/message?v=20160420&q=' + input, headers={
+            'Authorization': 'Bearer %s' % access_token
+        })
+        data = r.json()
+        intent = data['outcomes'][0]['intent']
+        entities = data['outcomes'][0]['entities']
+        confidence = data['outcomes'][0]['confidence']
+        #if intent in src.__all__ and confidence > 0.5:
+        return [intent, entities, confidence]
+        #else:
+        #    return None, {}
+    except:
+        return None, {}
+
+print(process_query("weather in washington"))
+
