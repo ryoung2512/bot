@@ -10,12 +10,18 @@ from urllib.request import urlopen
 
 
 def process(input, entities):
-    if 'location' in entities:
-        loc = entities['location'][0]['value']
+    if 'address' in entities:
+        try:
+            loc = ''
+            for k, v in entities['address'].items():
+                loc = loc + ' ' + v
+        except:
+            loc = next(iter(entities['address'].values()))
     else:
         location = commands.get_location()
         loc = location['city'] + "," + location['region_name'] + "," + location['country_name']
-    msg = get_weather(loc)
+
+    msg = get_weather(loc.strip())
     output = {
         'input': input,
         'msg': msg,
@@ -25,17 +31,24 @@ def process(input, entities):
 
 
 def get_weather(location):
+    #print(location)
     baseurl = 'https://query.yahooapis.com/v1/public/yql?'
     yql_query = 'select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="' + location + '")'
-    yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
-    result = urlopen(yql_url).read()
-    data = json.loads(result)
+    default_msg = "Sorry, I could not find that for you, are you sure that is a real place?"
+    try:
+        yql_url = baseurl + urlencode({'q': yql_query}) + "&format=json"
+        result = urlopen(yql_url).read()
+        data = json.loads(result)
+    except:
+        return default_msg
+
+    #print(data)
 
     if data['query']['count'] is 0:
-        return "Sorry, I could not find that for you, are you sure that is a real place?"
+        return default_msg
 
     results = data['query']['results']['channel']
     loc = results['location']['city'] + "," + results['location']['region'] + ", " + results['location']['country']
     condition = results['item']['condition']
-    return "The current weather in " + loc + " is " + condition['text'] + " and " + condition['temp'] + " " + chr(
-        176) + "C"
+    return "The current weather in " + loc + " is " + condition['text'] + " and " + condition['temp'] + chr(
+        176) + "F"
