@@ -16,8 +16,7 @@ except ImportError:
     import apiai
 
 # The token needed to communicate with our bot
-
-token = "07924bd190424e6caa2a5c5b63ff227b"
+token = "621738afe2e845978091c0fde5f660bf"
 
 
 class Communicator(object):
@@ -34,8 +33,12 @@ class Communicator(object):
             self.request.query = message
             callback = self.request.getresponse()
             self.response = json.loads(callback.read())
+            print(self.response)
         except:
             self.response = {}
+
+    def get_resolved_query(self):
+        return self.response['result']['resolvedQuery']
 
     def get_new_session_id(self):
         self.session_id = util.generate_id(20)
@@ -43,20 +46,35 @@ class Communicator(object):
     def get_confidence(self):
         if self.response:
             return self.response['result']['score']
-        else:
-            return 0
+        return 0.0
 
     def get_intent(self):
         if self.response:
             return self.response['result']['action']
-        else:
-            return 'empty'
+        return 'empty'
+
+    def get_action(self):
+        return self.response['result']['action']
+
+    def get_speech(self):
+        return self.response['result']['fulfillment']['speech']
+
+    def get_params(self):
+        return self.response['result']['parameters']
+
+    def get_message(self):
+        msg = "sorry I don\'t know how to handle that yet"
+        if self.get_confidence() > 0.5:
+            if "smalltalk" in self.get_action():
+                msg = self.get_speech()
+            else:
+                query = self.get_resolved_query()
+                action = self.get_action()
+                params = self.get_params()
+                msg = parse.parse_intent(query, action, params)['msg']
+
+        return msg
 
     def print_message(self):
-        if self.get_confidence() > 0.5:
-            msg = self.response['result']['fulfillment']['speech']
-            print('serena: ' + msg)
-           # talk.bot_speak(msg)
-        else:
-            print('serena: sorry I don\'t know how to handle that yet')
+        print('serena: ' + self.get_message())
         self.response = {}

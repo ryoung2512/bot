@@ -31,7 +31,7 @@ def process(input, entities):
 
 
 def get_weather(location):
-    #print(location)
+    # print(location)
     baseurl = 'https://query.yahooapis.com/v1/public/yql?'
     yql_query = 'select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="' + location + '")'
     default_msg = "Sorry, I could not find that for you, are you sure that is a real place?"
@@ -42,7 +42,7 @@ def get_weather(location):
     except:
         return default_msg
 
-    #print(data)
+    # print(data)
 
     if data['query']['count'] is 0:
         return default_msg
