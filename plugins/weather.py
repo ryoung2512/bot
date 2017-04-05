@@ -51,5 +51,7 @@ def get_weather(location, unit):
     results = data['query']['results']['channel']
     loc = results['location']['city'] + "," + results['location']['region'] + ", " + results['location']['country']
     condition = results['item']['condition']
-    temp = condition['temp'] if unit == 'C' else (int(condition['temp']) - 32) * 5.0 / 9.0
+    temp = int(condition['temp'])
+    if unit == 'C':
+        temp = (temp - 32) * 5.0 / 9.0
     return "The current weather in " + loc + " is " + condition['text'] + " and " + str(round(temp, 2)) + chr(176) + unit
