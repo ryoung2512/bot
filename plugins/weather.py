@@ -10,7 +10,7 @@ from urllib.request import urlopen
 
 
 def process(input, entities):
-    if 'address' in entities:
+    if 'address' in entities and entities['address'] != '':
         try:
             loc = ''
             for k, v in entities['address'].items():
@@ -52,5 +52,4 @@ def get_weather(location, unit):
     loc = results['location']['city'] + "," + results['location']['region'] + ", " + results['location']['country']
     condition = results['item']['condition']
     temp = condition['temp'] if unit == 'C' else (int(condition['temp']) - 32) * 5.0 / 9.0
-    return "The current weather in " + loc + " is " + condition['text'] + " and " + str(temp) + chr(
-        176) + unit
+    return "The current weather in " + loc + " is " + condition['text'] + " and " + str(round(temp, 2)) + chr(176) + unit

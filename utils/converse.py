@@ -65,14 +65,13 @@ class Communicator(object):
     def get_message(self):
         msg = "sorry I don\'t know how to handle that yet"
         if self.get_confidence() > 0.5:
-            if "smalltalk" in self.get_action():
-                msg = self.get_speech()
-            else:
+            if self.get_action() in plugins.__all__:
                 query = self.get_resolved_query()
                 action = self.get_action()
                 params = self.get_params()
                 msg = parse.parse_intent(query, action, params)['msg']
-
+            else:
+                msg = self.get_speech()
         return msg
 
     def print_message(self):
