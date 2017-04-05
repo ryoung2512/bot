@@ -21,7 +21,8 @@ def process(input, entities):
         location = commands.get_location()
         loc = location['city'] + "," + location['region_name'] + "," + location['country_name']
 
-    msg = get_weather(loc.strip())
+    units = 'C' if entities['unit'] == 'C' else 'F'
+    msg = get_weather(loc.strip(), units)
     output = {
         'input': input,
         'msg': msg,
@@ -30,7 +31,7 @@ def process(input, entities):
     return output
 
 
-def get_weather(location):
+def get_weather(location, unit):
     # print(location)
     baseurl = 'https://query.yahooapis.com/v1/public/yql?'
     yql_query = 'select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="' + location + '")'
@@ -44,11 +45,12 @@ def get_weather(location):
 
     # print(data)
 
-    if data['query']['count'] is 0:
+    if data['query']['count'] == 0:
         return default_msg
 
     results = data['query']['results']['channel']
     loc = results['location']['city'] + "," + results['location']['region'] + ", " + results['location']['country']
     condition = results['item']['condition']
-    return "The current weather in " + loc + " is " + condition['text'] + " and " + condition['temp'] + chr(
-        176) + "F"
+    temp = condition['temp'] if unit == 'C' else (int(condition['temp']) - 32) * 5.0 / 9.0
+    return "The current weather in " + loc + " is " + condition['text'] + " and " + str(temp) + chr(
+        176) + unit
